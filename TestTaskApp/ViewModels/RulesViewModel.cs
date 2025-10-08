@@ -65,7 +65,7 @@ namespace TestTaskApp.ViewModels
             if (string.IsNullOrEmpty(path)) return;
             try
             {
-                var dto = ServiceRulesExportImport.ImportFromJson(path);
+                var dto = await Task.Run(() => ServiceRulesExportImport.ImportFromJson(path));
 
                 Rules.Clear();
 

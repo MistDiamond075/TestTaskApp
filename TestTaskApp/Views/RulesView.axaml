@@ -14,9 +14,9 @@
 					Value="{Binding $self.DataValidationErrors[0].ErrorText}"/>
 		</Style>
 	</UserControl.Styles>
-	<Grid RowDefinitions="Auto,*" Background="#474747">
+	<Grid RowDefinitions="Auto,*" Background="{DynamicResource AppBackgroundBrush}">
 
-		<Grid Grid.Row="0" Background="#474747" Height="60">
+		<Grid Grid.Row="0" Background="{DynamicResource AppBackgroundBrush}" Height="60">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
@@ -28,7 +28,8 @@
 			<Button Grid.Column="0"
                     Content="Назад"
                     Command="{Binding BackCommand}"
-					Background="LightGray"
+					Background="Gray"
+					Foreground="Black"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
                     Width="120" Height="40"
@@ -41,14 +42,16 @@
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Foreground="White"/>
+				   Background="{DynamicResource AppBackgroundBrush}"
+                       Foreground="{DynamicResource AppForegroundBrush}"/>
 
 			<Button Grid.Column="2"
             Content="Импорт"
             Command="{Binding ImportCommand}"
 					HorizontalContentAlignment="Center"
 						VerticalContentAlignment="Center"
-            Background="LightGray"
+            Background="Gray"
+					Foreground="Black"
             Width="120" Height="40"
             Margin="10"
             VerticalAlignment="Center"/>
@@ -56,7 +59,8 @@
 			<Button Grid.Column="3"
 					Content="Экспорт"
 					Command="{Binding ExportCommand}"
-					Background="LightGray"
+					Background="Gray"
+					Foreground="Black"
 					Width="120" Height="40"
 					Margin="10"
 					HorizontalContentAlignment="Center"
@@ -65,7 +69,8 @@
 			<Button Grid.Column="4"
 						Content="Сохранить"
 						Command="{Binding SaveCommand}"
-					Background="LightGray"
+					Background="Gray"
+					Foreground="Black"
 						HorizontalContentAlignment="Center"
 						VerticalContentAlignment="Center"
 						Width="120" Height="40"
@@ -78,7 +83,7 @@
 		<Border Grid.Row="1"
                 Padding="10"
                 CornerRadius="8"
-				Background="#474747"
+			Background="{DynamicResource AppBackgroundBrush}"
                 Width="1450"
                 MaxHeight="720"
                 HorizontalAlignment="Center"
@@ -87,7 +92,7 @@
 			<ScrollViewer>
 				<StackPanel>
 
-					<UniformGrid Columns="10" Background="#DDD" Margin="5">
+					<UniformGrid Columns="10" Background="Gray" Margin="5">
 						<TextBlock Text="id" FontWeight="Bold" TextAlignment="Center"/>
 						<TextBlock Text="Переменная" FontWeight="Bold" TextAlignment="Center"/>
 						<TextBlock Text="Операция" FontWeight="Bold" TextAlignment="Center"/>
@@ -109,7 +114,7 @@
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Grid Margin="5" Background="LightGray">
+								<Grid Margin="5" Background="{DynamicResource AppBackgroundBrush}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/> 
                                         <ColumnDefinition Width="Auto"/>
@@ -169,7 +174,8 @@
 					<Button
 						Content="Создать"
 						Command="{Binding CreateRule}"
-						Background="LightGray"
+						Background="Gray"
+						Foreground="Black"
 						HorizontalContentAlignment="Center"
 						VerticalContentAlignment="Center"
 						Width="160" Height="45"

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,6 +17,8 @@ namespace TestTaskApp.sensors
         private DateTime lastUpdated;
         private static uint _globalId = 0;
         private uint id;
+        public ObservableCollection<(DateTime, int)> History { get; }
+        = new ObservableCollection<(DateTime, int)>();
         public int Value
         {
             get => value;
@@ -26,6 +29,9 @@ namespace TestTaskApp.sensors
                     updateTrend(this.value, value);
                     this.value = value;
                     LastUpdated = DateTime.Now;
+                    History.Add((LastUpdated, value));
+                    if (History.Count > 500)
+                        History.RemoveAt(0);
                     OnPropertyChanged();
                 }
             }

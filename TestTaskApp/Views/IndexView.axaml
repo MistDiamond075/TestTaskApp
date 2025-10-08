@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:TestTaskApp.ViewModels"
+			 xmlns:views="clr-namespace:TestTaskApp.Views"
+			 xmlns:sp="clr-namespace:ScottPlot.Avalonia;assembly=ScottPlot.Avalonia"
             xmlns:r="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
              xmlns:converters="clr-namespace:TestTaskApp.utils"
              mc:Ignorable="d"
@@ -13,33 +15,58 @@
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </UserControl.Resources>
 
-    <Grid Background="#474747">
+	<Grid Background="{DynamicResource AppBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-    <StackPanel Grid.Row="0" Panel.ZIndex="1">
-        <Button Content="Правила"
-                    Command="{Binding ButtonRules}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-                    Margin="10"
-				Width="160" Height="45"
-				>
-			<Button.Background>
-				<SolidColorBrush Color="LightGray"/>
-			</Button.Background>
-			</Button>
-    </StackPanel>
+		<StackPanel Grid.Row="0" Panel.ZIndex="1" Orientation="Horizontal"
+            HorizontalAlignment="Right" Spacing="14">
 
-        <StackPanel Grid.Row="1" Panel.ZIndex="1">
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,20,0">
+				<TextBlock Text="Период:" Foreground="{DynamicResource SensorForegroundBrush}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+				<ComboBox Width="130"
+              SelectedItem="{Binding SelectedRangeLabel}">
+					<ComboBox.Items>
+						<ComboBoxItem Content="15 минут"/>
+						<ComboBoxItem Content="1 час"/>
+						<ComboBoxItem Content="24 часа"/>
+						</ComboBox.Items>
+					</ComboBox>
+			</StackPanel>
+			
+			<Button Content="Правила" Background="Gray" Foreground="Black" Command="{Binding ButtonRules}" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10" Width="120" Height="45" >
+			</Button>
+			<Button Content="Тема"
+            Command="{Binding SwitchThemeCommand}"
+					Foreground="Black"  Background="Gray"
+            Width="120" Height="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+
+			</Button>
+		</StackPanel>
+
+		<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+			<ItemsControl ItemsSource="{Binding Sensors}" HorizontalAlignment="Center">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<views:SensorPlotView Width="220" Height="250"/>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+		
+        <StackPanel Grid.Row="2" Panel.ZIndex="1">
             <TextBlock Text="Датчики"
                        FontSize="20"
-					   Foreground="White"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
             <ScrollViewer VerticalScrollBarVisibility="Disabled"
@@ -52,9 +79,9 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Width="200" Height="120"
-                                    Background="DarkGray" Margin="15,5,15,25">
-                                <StackPanel>
+                            <Border Width="200" Height="120" CornerRadius="4"
+                                    Background="{DynamicResource SensorBackgroundBrush}" Margin="15,5,15,25">
+                                <StackPanel >
                                     <TextBlock Text="{Binding DisplayName}"
                                                TextWrapping="Wrap"
                                                TextAlignment="Center"
@@ -80,10 +107,9 @@
             </ScrollViewer>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Panel.ZIndex="1" Margin="0 0 0 10">
+        <StackPanel Grid.Row="3" Panel.ZIndex="1" Margin="0 0 0 10">
             <TextBlock Text="Устройства"
                        FontSize="20"
-					   Foreground="White"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
             <ItemsControl ItemsSource="{Binding Actors}" HorizontalAlignment="Center">
@@ -94,14 +120,26 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding DisplayName}"
+                        <Button 
                                 Command="{Binding ToggleStateCommand}"
                                 Height="100" Width="100" FontSize="13"
                                 HorizontalContentAlignment="Center"
+								Foreground="Black"
                                 VerticalContentAlignment="Center">
-                            <Button.Background>
+							<Button.Background>
                                 <SolidColorBrush Color="{Binding State, Converter={StaticResource BoolToColorConverter}}"/>
                             </Button.Background>
+							<StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+								<TextBlock Text="{Binding DisplayName}"
+										   FontWeight="Bold"
+										   HorizontalAlignment="Center"
+										   Margin="0,0,0,2"/>
+								<TextBlock Text="{Binding LastUpdated}"
+										   FontSize="11"
+										   Foreground="Black"
+										   TextWrapping="Wrap"
+										   HorizontalAlignment="Center"/>
+							</StackPanel>
                         </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+	  <AvaloniaResource Include="Styles\CustomTheme.axaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,9 +20,13 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.9" />
+    <PackageReference Include="ScottPlot.Avalonia" Version="5.0.56" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\SensorPlotView.axaml.cs">
+      <DependentUpon>SensorPlotView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\IndexView.axaml.cs">
       <DependentUpon>IndexView.axaml</DependentUpon>
     </Compile>

@@ -1,0 +1,39 @@
+﻿<!-- Styles/CustomTheme.axaml -->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ResourceDictionary.ThemeDictionaries>
+		<ResourceDictionary x:Key="Light">
+			<Color x:Key="BackgroundColor">LightGray</Color>
+			<Color x:Key="ForegroundColor">Black</Color>
+			<Color x:Key="SensorBackgroundColor">#8b8b8b</Color>
+		<Color x:Key="SensorForegroundColor">#181818</Color>
+<Color x:Key="ButtonBackgroundColor">#181818</Color>
+		<Color x:Key="ButtonForegroundColor">#181818</Color>
+
+			<SolidColorBrush x:Key="AppBackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+			<SolidColorBrush x:Key="AppForegroundBrush" Color="{StaticResource ForegroundColor}"/>
+<SolidColorBrush x:Key="SensorBackgroundBrush" Color="{StaticResource SensorBackgroundColor}"/>
+			<SolidColorBrush x:Key="SensorForegroundBrush" Color="{StaticResource SensorForegroundColor}"/>
+		</ResourceDictionary>
+
+		<ResourceDictionary x:Key="Dark">
+			<Color x:Key="BackgroundColor">#252525</Color>
+			<Color x:Key="ForegroundColor">#d8d8d8</Color>
+			<Color x:Key="SensorBackgroundColor">#474747</Color>
+					<Color x:Key="SensorForegroundColor">#d8d8d8</Color>
+
+			<SolidColorBrush x:Key="AppBackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+			<SolidColorBrush x:Key="AppForegroundBrush" Color="{StaticResource ForegroundColor}"/>
+<SolidColorBrush x:Key="SensorBackgroundBrush" Color="{StaticResource SensorBackgroundColor}"/>
+			<SolidColorBrush x:Key="SensorForegroundBrush" Color="{StaticResource SensorForegroundColor}"/>
+		
+		</ResourceDictionary>
+
+		<ResourceDictionary x:Key="Default">
+			<SolidColorBrush x:Key="AppBackgroundBrush" Color="#F0F0F0"/>
+			<SolidColorBrush x:Key="AppForegroundBrush" Color="#202020"/>
+		</ResourceDictionary>
+	</ResourceDictionary.ThemeDictionaries>
+
+</ResourceDictionary>

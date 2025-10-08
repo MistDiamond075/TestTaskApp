@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScottPlot.Avalonia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace TestTaskApp.ViewModels
 {
     public class SensorViewModel : INotifyPropertyChanged
     {
-        private ISensor sensor;
+        public ISensor sensor;
+        public AvaPlot? PlotControl { get; set; }
+        public Action? OnPlotAssigned { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         public SensorViewModel(ISensor sensor)
         {

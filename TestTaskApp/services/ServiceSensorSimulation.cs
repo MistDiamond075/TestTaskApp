@@ -17,7 +17,7 @@ namespace TestTaskApp.services
     {
         private readonly ServiceSensors srvSensors;
         private readonly ServiceActors srvActors;
-        private readonly Random rnd = new();
+        private readonly ThreadLocal<Random> rnd = new(() => new Random());
         private bool isDayTime;
         private readonly TimeSpan dayTimeBound= new(20, 0, 0);
         private readonly ServiceUserRules srvUserRules;
@@ -70,12 +70,21 @@ namespace TestTaskApp.services
                 {
                     return;
                 }
-                if (checkDayTime && !isDayTime)
+                if (checkDayTime)
                 {
-                    if (lowerAddIterator < lowerAdd.Length && upperAddIterator < upperAdd.Length)
+                    if (isDayTime)
                     {
-                        lowerBound += lowerAdd[lowerAddIterator];
-                        upperBound += upperAdd[upperAddIterator];
+                        if (lowerAddIterator < lowerAdd.Length && upperAddIterator < upperAdd.Length)
+                        {
+                            lowerBound += lowerAdd[lowerAddIterator];
+                            upperBound += upperAdd[upperAddIterator];
+                            lowerAddIterator++;
+                            upperAddIterator++;
+                        }
+                    }
+                    else {
+                        lowerBound -= lowerAdd[lowerAddIterator];
+                        upperBound -= upperAdd[upperAddIterator];
                         lowerAddIterator++;
                         upperAddIterator++;
                     }
@@ -94,8 +103,8 @@ namespace TestTaskApp.services
                         }
                     }
                 }
-               // Console.WriteLine(actor.GetType().Name + '\t' + lowerBound+'\t'+upperBound);
-                result += rnd.Next(randLower, randUpper);
+                // Console.WriteLine(actor.GetType().Name + '\t' + lowerBound+'\t'+upperBound);
+                result += rnd.Value!.Next(randLower, randUpper);
             }
 
             switch (sensor.GetType().Name)
@@ -117,12 +126,32 @@ namespace TestTaskApp.services
                     }
                 case "SensorCA":
                     {
-                        generate("ActorVentilation", [-150, -100], [-250, -200], -30, 50, false);
+                        generate("ActorVentilation", [-150, -100], [-250, -200], -30, 50);
                         break;
                     }
                 case "SensorIlluminance":
                     {
-                        generate("ActorLamp", [600], [900], -50, 50, true);
+                        var lamps = srvActors.GetActorByType("ActorLamp");
+                        if (lamps != null && lamps.Count > 0)
+                        {
+                            bool anyLampOn = lamps.Any(l => l.State);
+                            if (anyLampOn)
+                            {
+                                result += rnd.Value!.Next(600, 1200);
+                            }
+                            else
+                            {
+                                result -= rnd.Value!.Next(600, 1200);
+                            }
+                        }
+
+                        result += rnd.Value!.Next(-50, 50);
+
+                        if (isDayTime)
+                            result += 400;
+                        else
+                            result -= 400;
+
                         break;
                     }
             }

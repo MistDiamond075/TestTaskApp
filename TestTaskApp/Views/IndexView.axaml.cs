@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.ReactiveUI;
+using ScottPlot.Avalonia;
 using TestTaskApp.ViewModels;
 
 namespace TestTaskApp.Views;

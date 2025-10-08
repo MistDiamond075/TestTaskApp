@@ -15,7 +15,7 @@ namespace TestTaskApp.utils
         {
             if (value is bool b)
             {
-                return b ?  new Color(255,110,155,92) : Colors.LightGray;
+                return b ?  new Color(255,110,155,92) : Colors.Gray;
             }
             return Colors.Gray;
         }
