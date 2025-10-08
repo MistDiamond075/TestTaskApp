@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.6" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.6" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.6" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.6" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.6" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\IndexView.axaml.cs">
+      <DependentUpon>IndexView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\RulesView.axaml.cs">
+      <DependentUpon>RulesView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

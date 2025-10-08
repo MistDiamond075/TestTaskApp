@@ -1,0 +1,111 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TestTaskApp.ViewModels"
+            xmlns:r="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
+             xmlns:converters="clr-namespace:TestTaskApp.utils"
+             mc:Ignorable="d"
+             x:Class="TestTaskApp.Views.IndexView"
+             x:DataType="vm:IndexViewModel">
+
+    <UserControl.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </UserControl.Resources>
+
+    <Grid Background="#474747">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+    <StackPanel Grid.Row="0" Panel.ZIndex="1">
+        <Button Content="Правила"
+                    Command="{Binding ButtonRules}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+                    Margin="10"
+				Width="160" Height="45"
+				>
+			<Button.Background>
+				<SolidColorBrush Color="LightGray"/>
+			</Button.Background>
+			</Button>
+    </StackPanel>
+
+        <StackPanel Grid.Row="1" Panel.ZIndex="1">
+            <TextBlock Text="Датчики"
+                       FontSize="20"
+					   Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                          HorizontalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Sensors}" HorizontalAlignment="Center">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="200" Height="120"
+                                    Background="DarkGray" Margin="15,5,15,25">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DisplayName}"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Top"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Value}"
+                                               TextAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="4,14,0,0"/>
+                                    <TextBlock Text="{Binding Trend}"
+                                               TextAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="4,10,0,0"/>
+                                    <TextBlock Text="{Binding LastUpdated}"
+                                               TextAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="4,10,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Panel.ZIndex="1" Margin="0 0 0 10">
+            <TextBlock Text="Устройства"
+                       FontSize="20"
+					   Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            <ItemsControl ItemsSource="{Binding Actors}" HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding DisplayName}"
+                                Command="{Binding ToggleStateCommand}"
+                                Height="100" Width="100" FontSize="13"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center">
+                            <Button.Background>
+                                <SolidColorBrush Color="{Binding State, Converter={StaticResource BoolToColorConverter}}"/>
+                            </Button.Background>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>

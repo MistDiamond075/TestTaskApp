@@ -1,0 +1,34 @@
+{
+  "SingleRules": [
+    {
+      "VariableName": "TimeOnly",
+      "Operation": "\u003C=",
+      "ComparableName": "23:01",
+      "ActorName": "ActorPump",
+      "ActorState": true,
+      "Timer": null
+    },
+    {
+      "VariableName": "SensorIlluminance",
+      "Operation": "\u003E",
+      "ComparableName": "1400",
+      "ActorName": "ActorLamp:2",
+      "ActorState": false,
+      "Timer": null
+    }
+  ],
+  "DoubleRules": [
+    {
+      "VariableFirstName": "SensorSoilMosture:1",
+      "OperationFirst": "\u003C=",
+      "ComparableFirstName": "90",
+      "VariableSecondName": "SensorHumidify",
+      "OperationSecond": "=",
+      "ComparableSecondName": "40",
+      "ActorName": "ActorPump",
+      "ActorState": true,
+      "Timer": null
+    }
+  ],
+  "Version": 1
+}
