@@ -1,2 +1,0 @@
-# TestTaskApp
-c# test task
